@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/DataBase.cpp
+DataBase.h
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/DataBase.h
+
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/DataBase.h
+bits/stdc++.h
+-
+sys/stat.h
+-
+opencv2/core.hpp
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/opencv2/core.hpp
+opencv2/flann/miniflann.hpp
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/opencv2/flann/miniflann.hpp
+opencv2/flann/flann_base.hpp
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/opencv2/flann/flann_base.hpp
+
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/main.cpp
+DataBase.h
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/DataBase.h
+

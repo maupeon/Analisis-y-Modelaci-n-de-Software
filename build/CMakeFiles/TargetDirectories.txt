@@ -1,0 +1,3 @@
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/CMakeFiles/rebuild_cache.dir
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/CMakeFiles/main.dir
+/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/build/CMakeFiles/edit_cache.dir
