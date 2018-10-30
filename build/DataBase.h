@@ -16,7 +16,6 @@ class DataBase {
     Mat queries;
 
     public:
-    
     void cargarBase(string archivo);
     Mat getMatrix();
     Mat getColumn(int num);
