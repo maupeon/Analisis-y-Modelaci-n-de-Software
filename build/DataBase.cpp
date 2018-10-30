@@ -10,7 +10,7 @@ void DataBase::cargarBase(string archivo){
         std::istringstream stream(line);
 
         char sep; //comma!
-        double x;
+        float x;
         // read *both* a number and a comma:
         while (stream >> x && stream >> sep) {
 
@@ -36,18 +36,21 @@ void DataBase::cargarBase(string archivo){
  }
 
  Mat DataBase::KDTree(Mat db,vector<float> elementoaBuscar,int K){
-     cv::Mat indexMat(db.size(), CV_32FC1);
+     cout << db.rows << " " << db.cols << " " << db.type() << endl;
      cv::flann::Index flann_index(
-        indexMat,
-        cv::flann::SavedIndexParams("c:\\index.fln"),
-        cvflann::FLANN_DIST_EUCLIDEAN
-    );
+        db, cv::flann::KDTreeIndexParams());
+    
+    cout << "xxxxx" << endl;
      Mat indices,dists;
-     flann_index.knnSearch(db,indices,dists,K);
+     Mat x = db.row(6).clone();//= Mat::zeros(1, 129, CV_32FC1);
+     cout << x.type() << endl;
+
+     flann_index.knnSearch(elementoaBuscar,indices,dists,K);
      /*Index kdtree(db, KDTreeIndexParams());
 
      Mat indices,dists;
      kdtree.knnSearch(db,indices,dists,K);*/
-     
-return indices;
+    // cout << indices << endl;
+     //cout << dists << endl;
+    return indices;
  }
