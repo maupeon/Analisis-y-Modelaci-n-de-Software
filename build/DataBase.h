@@ -13,14 +13,24 @@ using namespace flann;
 
 class DataBase {
     private:
-    Mat queries;
+        Mat queries;    
+        Index *flann_index;
+        int n;
+        string name,lastName,mail,age,biographicalFile,biometricFile,nFile;
+        fstream biographicalDB,biometricDB,N;
 
     public:
-    void cargarBase(string archivo);
-    Mat getMatrix();
-    Mat getColumn(int num);
-    Mat getRow(int num);
-    Mat KDTree(Mat features,vector<float> elementoaBuscar,int K);
-
+        DataBase();
+        DataBase(string biographicalFile,string biometricFile,string nFile);
+        Mat cargarBase(string archivo);
+        Mat getMatrix();
+        Mat getColumn(int num);
+        Mat getRow(int num);
+        Mat search(Mat elementoaBuscar,int K);
+        void saveUserDataInAFile(vector <vector <string>> userData);
+        void saveUserBiometricDataInAFile(Mat biometric);
+        void updateDataBase(int n);
+        //~DataBase();
+    
 };
 #endif
