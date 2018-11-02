@@ -6,21 +6,17 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile){
     this->nFile=nFile;
     queries =  cargarBase(biometricFile);
     flann_index = new Index(queries, cv::flann::KDTreeIndexParams());
-     N.open(nFile,ios::in);
-        if(N.is_open()){
-            N>>n;
-            N.close();
-        }else cout<<"Unable to open N.txt\n";
+   
 }
 
 DataBase::DataBase(){
-    string archivo = "biometrics.txt";
-    string narch = "N.txt";
-     N.open(narch,ios::out);
+    this->biographicalFile= "Data.txt";
+    this->biometricFile = "biometrics.txt";
+    this->nFile = "N.txt";
+     N.open(nFile,ios::out);
         if(N.is_open()){
             N<<"0\n";
             cout<<"***Fichero N.txt creado con éxito***\n";
-            n=0;
             N.close();
         }else cout<< "Unable creating N.txt\n";
         
@@ -53,6 +49,14 @@ Mat DataBase::cargarBase(string archivo){
     // reshape to 2d:
     res = res.reshape(1,rows);
     return res;
+}
+
+void DataBase::getN(){
+    N.open(nFile,ios::in);
+    if(N.is_open()){
+            N>>n;
+            N.close();
+    }else cout<<"Unable to open N.txt\n";
 }
 
 

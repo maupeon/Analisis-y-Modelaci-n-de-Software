@@ -16,7 +16,7 @@ class DataBase {
         Mat queries;    
         Index *flann_index;
         int n;
-        string name,lastName,mail,age,biographicalFile,biometricFile,nFile;
+        string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile;
         fstream biographicalDB,biometricDB,N;
 
     public:
@@ -30,6 +30,7 @@ class DataBase {
         void saveUserDataInAFile(vector <vector <string>> userData);
         void saveUserBiometricDataInAFile(Mat biometric);
         void updateDataBase(int n);
+        void getN();
         //~DataBase();
     
 };
