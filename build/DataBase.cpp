@@ -5,8 +5,9 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile){
     this->biometricFile=biometricFile;
     this->nFile=nFile;
     queries =  cargarBase(biometricFile);
+    
     flann_index = new Index(queries, cv::flann::KDTreeIndexParams());
-   
+   cout<<"listo"<<endl;
 }
 
 DataBase::DataBase(){
@@ -52,9 +53,10 @@ Mat DataBase::cargarBase(string archivo){
     Rect ids_rect(0,0,1,res.rows);
     Rect descr_rect(1, 0, res.cols-1,res.rows); 
     Mat ids(res, ids_rect);
+    ids.clone();
     Mat descr(res, descr_rect);
-
-    return res;
+    //cout<<descr<<endl;
+    return descr.clone();
 }
 
 void DataBase::getN(){
@@ -114,22 +116,18 @@ void DataBase::updateDataBase(int n){
     }else cout<<"Error updating N.txt file\n";
 }
 void DataBase::saveUserBiometricDataInAFile(Mat biometric){
+    string nuevoUsuario = "";
+    biometricDB.open(biometricFile,ios::out | ios::app);
     
-    //biometricDB.open(biometricFile,ios::out | ios::app);
-    cout<<biometric.cols<<" "<<biometric.rows<<endl;
-    //biometricDB<<endl;
-    cv::FileStorage file(biometricFile, cv::FileStorage::APPEND);
-//cv::Mat someMatrixOfAnyType;
-
-// Write to file!
-    file << "id3124" << biometric;
-    //file << biometric;
-    /*for(int i=0; i<biometric.rows; i++){
-             biometricDB<<biometric;
-         
-    }*/
-    //biometricDB<<"\n";
-    //n++;
+    for(int i = 0 ; i< biometric.cols;i++){
+        float nearest = roundf(biometric.at<float>(0,i) * 100) / 100; 
+       // cout<<nearest<<" ";
+        nuevoUsuario+= to_string(nearest);
+        if(i < biometric.cols-1){
+            nuevoUsuario+=',';
+        }
+    }
+    biometricDB<<nuevoUsuario<<endl;
 }
 
 bool DataBase::verify(int Id,Mat vec){
@@ -141,5 +139,8 @@ bool DataBase::verify(int Id,Mat vec){
         }else return false;
     }else cout<<"No existe el ID en la base de datos\n";
 }
+
+
+
 
  

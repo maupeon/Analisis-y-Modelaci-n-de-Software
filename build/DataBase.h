@@ -11,13 +11,19 @@ using namespace std;
 using namespace cv;
 using namespace flann;
 
+struct BiographicalData{
+    string id,matricula,name,lastName,mail,img;
+    int age;
+};
+
 class DataBase {
     private:
-        Mat queries;    
+        Mat queries,ids,descr;    
         Index *flann_index;
         int n;
         string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile;
         fstream biographicalDB,biometricDB,N;
+       
 
     public:
         DataBase();
