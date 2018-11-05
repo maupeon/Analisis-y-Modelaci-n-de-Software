@@ -16,6 +16,11 @@ struct BiographicalData{
     int age;
 };
 
+struct MatriculaId{
+    int ID;
+    string matricula;
+};
+
 class DataBase {
     private:
         Mat queries,ids,descr;    
@@ -23,16 +28,19 @@ class DataBase {
         int n;
         string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile,id_matFile;
         fstream biographicalDB,biometricDB,N,Id_Mat;
+        vector <vector<MatriculaId> > Id_MatriculaVector;
        
 
     public:
         DataBase();
         DataBase(string biographicalFile,string biometricFile,string nFile,string id_matFile);
-        Mat cargarBase();
+        void cargarBase();
+        void cargarId_MatriculaFile();
         Mat getMatrix();
         Mat getColumn(int num);
         Mat getRow(int num);
         Mat search(Mat elementoaBuscar,int K);
+        Mat getBiometricByMatricula(string matricula);
         void saveUserDataInAFile(BiographicalData bio);
         void saveUserBiometricDataInAFile(Mat biometric);
         //bool verify(string matricula,Mat vec);

@@ -26,7 +26,9 @@ float data[] = {-0.052, -0.268, -0.668, 0.174,
     //cout<<feat(0)(0)<<endl;
     //cout << feat.at<float>(0,1);
     //cout << feat << endl;
-   db.saveUserBiometricDataInAFile(feat);
+   //db.saveUserBiometricDataInAFile(feat);
+    cout<<db.getBiometricByMatricula("1234")<<endl;
+    
     //cout<<db.search(feat,100)<<endl;
     //cout<<db.getRow(0)[0]<<endl;
    // cout << db.getMatrix().at<float>(0,1);

@@ -26,38 +26,44 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
     this->biometricFile=biometricFile;
     this->nFile=nFile;
     this->id_matFile=id_matFile;
-    queries =  cargarBase();
+    cargarBase();
+    cargarId_MatriculaFile();
     
-    flann_index = new Index(queries, cv::flann::KDTreeIndexParams());
+    flann_index = new Index(descr, cv::flann::KDTreeIndexParams());
     cout<<"listo"<<endl;
 }
 
-Mat DataBase::cargarBase(){
+void DataBase::cargarBase(){
    int rows = 0;
    Mat res;
     std::string line;
     biometricDB.open(biometricFile);
-    while (getline(biometricDB, line)) {
-        line+=',';
-        std::istringstream stream(line);
-        char sep; //comma!
-        float x;
-        while (stream >> x && stream >> sep) {
-            res.push_back(x);
+    if(biometricDB.is_open()){
+        while (getline(biometricDB, line)) {
+            line+=',';
+            std::istringstream stream(line);
+            char sep; //comma!
+            float x;
+            while (stream >> x && stream >> sep) {
+                res.push_back(x);
+            }
+            rows ++;
         }
-        rows ++;
-    } 
+        
+        // reshape to 2d:
+        res = res.reshape(1,rows);
+        
+        Rect ids_rect(0,0,1,res.rows);
+        Rect descr_rect(1, 0, res.cols-1,res.rows);
+        Mat ids(res, ids_rect);
+        ids.clone();
+        Mat descr(res, descr_rect);
+        //cout<<descr<<endl;
+        biometricDB.close();
+        descr.clone();
+        
+    }else cout<<"Unable to open: "<<biometricFile<<'\n';
 
-    // reshape to 2d:
-    res = res.reshape(1,rows);
-
-    Rect ids_rect(0,0,1,res.rows);
-    Rect descr_rect(1, 0, res.cols-1,res.rows); 
-    Mat ids(res, ids_rect);
-    ids.clone();
-    Mat descr(res, descr_rect);
-    //cout<<descr<<endl;
-    return descr.clone();
 }
 
  Mat DataBase::getMatrix(){
@@ -81,6 +87,30 @@ Mat DataBase::cargarBase(){
     return indices; 
  }
 
+void DataBase::cargarId_MatriculaFile(){
+    MatriculaId m;
+
+    Id_Mat.open(id_matFile,ios::in);
+    
+    if(Id_Mat.is_open()){
+       while (Id_Mat>>m.ID>>m.matricula) {
+           
+           Id_MatriculaVector.push_back(m);
+       }
+        
+    }else cout<<"Unable to open"<<id_matFile<<'\n';
+}
+
+Mat DataBase::getBiometricByMatricula(string matricula){
+    Mat m;
+    for(int i=0;i<Id_MatriculaVector.size();i++){
+        if(Id_MatriculaVector[i].matricula == matricula){
+            return queries.row(i);
+        }
+    }
+    return m;
+}
+
 void DataBase::saveUserDataInAFile(BiographicalData bio){
     getN();
     int id=n;
@@ -97,7 +127,7 @@ void DataBase::saveUserDataInAFile(BiographicalData bio){
 
 void DataBase::saveUserBiometricDataInAFile(Mat biometric){
     string nuevoUsuario = "";
-    int id=22;
+    int id=100000;
     biometricDB.open(biometricFile,ios::out | ios::app);
     
     nuevoUsuario+=to_string(id);
@@ -111,19 +141,8 @@ void DataBase::saveUserBiometricDataInAFile(Mat biometric){
         }
     }
     cout<<nuevoUsuario<<endl;
-    biometricDB<<nuevoUsuario<<endl;
+    biometricDB<<nuevoUsuario<<"\n";
 }
-
-/*bool DataBase::verify(string matricula,Mat vec){
-    float dmin=0.6,d;
-    if(Id<n-1 && Id>=0){
-        d=cv::norm(queries.row(Id),vec,cv::NORM_L2);
-        if(d>dmin){
-            return true;
-        }else return false;
-    }else cout<<"No existe el ID en la base de datos\n";
-    return false;
-}*/
 
 void DataBase::getN(){
     N.open(nFile,ios::in);
