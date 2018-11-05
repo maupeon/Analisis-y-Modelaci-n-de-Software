@@ -28,8 +28,8 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
     this->id_matFile=id_matFile;
     cargarBase();
     cargarId_MatriculaFile();
-    
-    flann_index = new Index(descr, cv::flann::KDTreeIndexParams());
+    //cout<<descriptores<<endl;
+    flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
     cout<<"listo"<<endl;
 }
 
@@ -56,11 +56,12 @@ void DataBase::cargarBase(){
         Rect ids_rect(0,0,1,res.rows);
         Rect descr_rect(1, 0, res.cols-1,res.rows);
         Mat ids(res, ids_rect);
-        ids.clone();
+        ides = ids.clone();
         Mat descr(res, descr_rect);
         //cout<<descr<<endl;
         biometricDB.close();
-        descr.clone();
+        descriptores = descr.clone();
+        
         
     }else cout<<"Unable to open: "<<biometricFile<<'\n';
 
@@ -105,7 +106,7 @@ Mat DataBase::getBiometricByMatricula(string matricula){
     Mat m;
     for(int i=0;i<Id_MatriculaVector.size();i++){
         if(Id_MatriculaVector[i].matricula == matricula){
-            return queries.row(i);
+            return descriptores.row(i);
         }
     }
     return m;

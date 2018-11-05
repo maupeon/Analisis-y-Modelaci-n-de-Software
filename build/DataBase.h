@@ -23,12 +23,12 @@ struct MatriculaId{
 
 class DataBase {
     private:
-        Mat queries,ids,descr;    
+        Mat queries,ides,descriptores;    
         Index *flann_index;
         int n;
         string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile,id_matFile;
         fstream biographicalDB,biometricDB,N,Id_Mat;
-        vector <vector<MatriculaId> > Id_MatriculaVector;
+        vector<MatriculaId> Id_MatriculaVector;
        
 
     public:
