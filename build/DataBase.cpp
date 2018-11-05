@@ -90,23 +90,28 @@ void DataBase::getN(){
     return indices; 
  }
 
- void DataBase::saveUserDataInAFile(vector <vector <string>> userData){
+void DataBase::saveUserDataInAFile(BiographicalData bio){
+    getN();
     int id=n;
     biographicalDB.open(biographicalFile,ios::out | ios::app);
     
     if(biographicalDB.is_open()){
-        for(int i=0; i<userData.size(); i++){
-            biographicalDB<<id;
-            for(int j=0; j<userData[i].size(); j++){
-                biographicalDB<<","<<userData[i][j];
-            }
-            biographicalDB<<"\n";
-            id++;
-        }
+        
+        biographicalDB<<id<<","<<bio.matricula<<","<<bio.name<<","<<bio.lastName<<","<<bio.mail<<","<<bio.age<<"\n";
+        id++;
         biographicalDB.close();
     }else cout<<"Unable to open file\n";
     updateDataBase(id);
 }
+
+void DataBase::getN(){
+    N.open(nFile,ios::in);
+    
+    if(N.is_open()){
+        N>>n;
+    }else cout<<"Unable to open: "<<nFile<<'\n';
+}
+
 void DataBase::updateDataBase(int n){
     N.open(nFile);
     

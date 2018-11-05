@@ -33,7 +33,7 @@ class DataBase {
         Mat getColumn(int num);
         Mat getRow(int num);
         Mat search(Mat elementoaBuscar,int K);
-        void saveUserDataInAFile(vector <vector <string>> userData);
+        void saveUserDataInAFile(BiographicalData bio);//Save user biographical data in a file
         void saveUserBiometricDataInAFile(Mat biometric);
         void updateDataBase(int n);
         void getN();
