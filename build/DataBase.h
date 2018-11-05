@@ -31,6 +31,7 @@ class DataBase {
         void saveUserBiometricDataInAFile(Mat biometric);
         void updateDataBase(int n);
         void getN();
+        bool verify(int Id,Mat vec);
         //~DataBase();
     
 };

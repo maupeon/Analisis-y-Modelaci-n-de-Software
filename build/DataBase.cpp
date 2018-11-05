@@ -48,6 +48,12 @@ Mat DataBase::cargarBase(string archivo){
 
     // reshape to 2d:
     res = res.reshape(1,rows);
+
+    Rect ids_rect(0,0,1,res.rows);
+    Rect descr_rect(1, 0, res.cols-1,res.rows); 
+    Mat ids(res, ids_rect);
+    Mat descr(res, descr_rect);
+
     return res;
 }
 
@@ -109,21 +115,31 @@ void DataBase::updateDataBase(int n){
 }
 void DataBase::saveUserBiometricDataInAFile(Mat biometric){
     
-    biometricDB.open(biometricFile,ios::out | ios::app);
-    cout<<biometric.cols<<endl;
+    //biometricDB.open(biometricFile,ios::out | ios::app);
+    cout<<biometric.cols<<" "<<biometric.rows<<endl;
     //biometricDB<<endl;
-    cv::FileStorage file(biometricFile, cv::FileStorage::WRITE);
+    cv::FileStorage file(biometricFile, cv::FileStorage::APPEND);
 //cv::Mat someMatrixOfAnyType;
 
 // Write to file!
+    file << "id3124" << biometric;
     //file << biometric;
-    //file << biometric;
-    for(int i=0; i<biometric.rows; i++){
+    /*for(int i=0; i<biometric.rows; i++){
              biometricDB<<biometric;
          
-    }
+    }*/
     //biometricDB<<"\n";
-    n++;
+    //n++;
+}
+
+bool DataBase::verify(int Id,Mat vec){
+    float dmin=0.6,d;
+    if(Id<n-1 && Id>=0){
+        d=cv::norm(queries.row(Id),vec,cv::NORM_L2);
+        if(d>dmin){
+            return true;
+        }else return false;
+    }else cout<<"No existe el ID en la base de datos\n";
 }
 
  
