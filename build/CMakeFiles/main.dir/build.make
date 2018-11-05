@@ -58,17 +58,17 @@ include CMakeFiles/main.dir/progress.make
 include CMakeFiles/main.dir/flags.make
 
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/main.cpp.o: main.cpp
+CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/main.cpp"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/main.cpp"
 
 CMakeFiles/main.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/main.cpp" > CMakeFiles/main.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/main.cpp" > CMakeFiles/main.dir/main.cpp.i
 
 CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/main.cpp" -o CMakeFiles/main.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/main.cpp" -o CMakeFiles/main.dir/main.cpp.s
 
 CMakeFiles/main.dir/main.cpp.o.requires:
 
@@ -82,17 +82,17 @@ CMakeFiles/main.dir/main.cpp.o.provides.build: CMakeFiles/main.dir/main.cpp.o
 
 
 CMakeFiles/main.dir/DataBase.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/DataBase.cpp.o: DataBase.cpp
+CMakeFiles/main.dir/DataBase.cpp.o: ../DataBase.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/DataBase.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/DataBase.cpp.o -c "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/DataBase.cpp"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/DataBase.cpp.o -c "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/DataBase.cpp"
 
 CMakeFiles/main.dir/DataBase.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/DataBase.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/DataBase.cpp" > CMakeFiles/main.dir/DataBase.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/DataBase.cpp" > CMakeFiles/main.dir/DataBase.cpp.i
 
 CMakeFiles/main.dir/DataBase.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/DataBase.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/DataBase.cpp" -o CMakeFiles/main.dir/DataBase.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/DataBase.cpp" -o CMakeFiles/main.dir/DataBase.cpp.s
 
 CMakeFiles/main.dir/DataBase.cpp.o.requires:
 

@@ -2,7 +2,7 @@
 
 int main()
 {
-    DataBase db("hola.txt","biometrics.txt","d.txt");
+    DataBase db("../hola.txt","../biometrics.txt","../d.txt");
     //DataBase db;
     
 
