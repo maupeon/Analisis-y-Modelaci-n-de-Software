@@ -4,14 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/DataBase.cpp" "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles/main.dir/DataBase.cpp.o"
-  "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/main.cpp" "/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles/main.dir/main.cpp.o"
+  "/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/DataBase.cpp" "/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/main.dir/DataBase.cpp.o"
+  "/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/main.cpp" "/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/main.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/include/opencv"
+  "/usr/local/include"
+  "/usr/local/include/opencv"
   )
 
 # Targets to which this target links.

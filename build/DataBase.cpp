@@ -1,14 +1,5 @@
 #include "DataBase.h"
 
-DataBase::DataBase(string biographicalFile,string biometricFile,string nFile){
-    this->biographicalFile=biographicalFile;
-    this->biometricFile=biometricFile;
-    this->nFile=nFile;
-    queries =  cargarBase(biometricFile);
-    
-    flann_index = new Index(queries, cv::flann::KDTreeIndexParams());
-   cout<<"listo"<<endl;
-}
 
 DataBase::DataBase(){
     this->biographicalFile= "Data.txt";
@@ -30,13 +21,23 @@ DataBase::DataBase(){
     flann_index = new Index(queries, cv::flann::KDTreeIndexParams());   */
 }
 
-Mat DataBase::cargarBase(string archivo){
+DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,string id_matFile){
+    this->biographicalFile=biographicalFile;
+    this->biometricFile=biometricFile;
+    this->nFile=nFile;
+    this->id_matFile=id_matFile;
+    queries =  cargarBase();
+    
+    flann_index = new Index(queries, cv::flann::KDTreeIndexParams());
+    cout<<"listo"<<endl;
+}
+
+Mat DataBase::cargarBase(){
    int rows = 0;
    Mat res;
     std::string line;
-    fstream arch;
-    arch.open(archivo);
-    while (getline(arch, line)) {  
+    biometricDB.open(biometricFile);
+    while (getline(biometricDB, line)) {
         line+=',';
         std::istringstream stream(line);
         char sep; //comma!
@@ -58,16 +59,6 @@ Mat DataBase::cargarBase(string archivo){
     //cout<<descr<<endl;
     return descr.clone();
 }
-
-void DataBase::getN(){
-    N.open(nFile,ios::in);
-    if(N.is_open()){
-            N>>n;
-            N.close();
-    }else cout<<"Unable to open N.txt\n";
-}
-
-
 
  Mat DataBase::getMatrix(){
     return queries;
@@ -104,6 +95,36 @@ void DataBase::saveUserDataInAFile(BiographicalData bio){
     updateDataBase(id);
 }
 
+void DataBase::saveUserBiometricDataInAFile(Mat biometric){
+    string nuevoUsuario = "";
+    int id=22;
+    biometricDB.open(biometricFile,ios::out | ios::app);
+    
+    nuevoUsuario+=to_string(id);
+    nuevoUsuario+=",";
+    for(int i = 0 ; i< biometric.cols;i++){
+        float nearest = roundf(biometric.at<float>(0,i) * 100) / 100;
+        //cout<<nearest<<" ";
+        nuevoUsuario+= to_string(nearest);
+        if(i < biometric.cols-1){
+            nuevoUsuario+=',';
+        }
+    }
+    cout<<nuevoUsuario<<endl;
+    biometricDB<<nuevoUsuario<<endl;
+}
+
+/*bool DataBase::verify(string matricula,Mat vec){
+    float dmin=0.6,d;
+    if(Id<n-1 && Id>=0){
+        d=cv::norm(queries.row(Id),vec,cv::NORM_L2);
+        if(d>dmin){
+            return true;
+        }else return false;
+    }else cout<<"No existe el ID en la base de datos\n";
+    return false;
+}*/
+
 void DataBase::getN(){
     N.open(nFile,ios::in);
     
@@ -120,30 +141,9 @@ void DataBase::updateDataBase(int n){
         N.close();
     }else cout<<"Error updating N.txt file\n";
 }
-void DataBase::saveUserBiometricDataInAFile(Mat biometric){
-    string nuevoUsuario = "";
-    biometricDB.open(biometricFile,ios::out | ios::app);
-    
-    for(int i = 0 ; i< biometric.cols;i++){
-        float nearest = roundf(biometric.at<float>(0,i) * 100) / 100; 
-       // cout<<nearest<<" ";
-        nuevoUsuario+= to_string(nearest);
-        if(i < biometric.cols-1){
-            nuevoUsuario+=',';
-        }
-    }
-    biometricDB<<nuevoUsuario<<endl;
-}
 
-bool DataBase::verify(int Id,Mat vec){
-    float dmin=0.6,d;
-    if(Id<n-1 && Id>=0){
-        d=cv::norm(queries.row(Id),vec,cv::NORM_L2);
-        if(d>dmin){
-            return true;
-        }else return false;
-    }else cout<<"No existe el ID en la base de datos\n";
-}
+
+
 
 
 

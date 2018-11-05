@@ -21,23 +21,24 @@ class DataBase {
         Mat queries,ids,descr;    
         Index *flann_index;
         int n;
-        string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile;
-        fstream biographicalDB,biometricDB,N;
+        string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile,id_matFile;
+        fstream biographicalDB,biometricDB,N,Id_Mat;
        
 
     public:
         DataBase();
-        DataBase(string biographicalFile,string biometricFile,string nFile);
-        Mat cargarBase(string archivo);
+        DataBase(string biographicalFile,string biometricFile,string nFile,string id_matFile);
+        Mat cargarBase();
         Mat getMatrix();
         Mat getColumn(int num);
         Mat getRow(int num);
         Mat search(Mat elementoaBuscar,int K);
-        void saveUserDataInAFile(BiographicalData bio);//Save user biographical data in a file
+        void saveUserDataInAFile(BiographicalData bio);
         void saveUserBiometricDataInAFile(Mat biometric);
-        void updateDataBase(int n);
+        //bool verify(string matricula,Mat vec);
         void getN();
-        bool verify(int Id,Mat vec);
+        void updateDataBase(int n);
+    
         //~DataBase();
     
 };

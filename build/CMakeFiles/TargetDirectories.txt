@@ -1,3 +1,3 @@
-/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles/rebuild_cache.dir
-/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles/main.dir
-/home/maupeon/Documentos/ITESM/6. Semestre/Análisis y Modelación de sistemas de software/CódigoPF/Analisis/build/CMakeFiles/edit_cache.dir
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/rebuild_cache.dir
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/edit_cache.dir
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/main.dir
