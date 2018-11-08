@@ -45,6 +45,7 @@ class DataBase {
         void load_ImgFolder();
         void load_N_File();
         void load_Id_MatriculaFile();
+        void load_BiographicalFile();
         Mat getMatrix();
         Mat getColumn(int num);
         Mat getRow(int num);
@@ -54,9 +55,13 @@ class DataBase {
         void saveUserBiometricDataInAFile(Mat biometric);
         void saveUserImage(Mat &image);
         void getN();
-        
         void updateDataBase();
+        bool ValidName(std::string word);
+        bool SimpleValidateMail(std::string mail);
+        int ValidateData(BiographicalData* Data);
         BiographicalData getUserInfoByID(int ID);
+        BiographicalData String_To_Structure(std::string Data_As_String);
+        std::vector<std::string> indexData(std::string dataLine);
     
         //~DataBase();
     
