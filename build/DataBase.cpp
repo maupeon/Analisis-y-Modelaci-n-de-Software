@@ -102,13 +102,14 @@ void DataBase::load_BiometricFile(){
 
 void DataBase::load_BiographicalFile(){
     
+    string line;
     biographicalDB.open(biographicalFile, std::ios::in);
     
     if(biographicalDB.is_open()){
         while (true) {
+            std::getline(biographicalDB,line);
             
-            
-            
+            biograData.push_back();
             if(!biographicalDB.eof()){
                 break;
             }
@@ -233,7 +234,7 @@ void DataBase::updateDataBase(){
 }
 
 void DataBase::saveUserImage(Mat &image){
-    string fileNameLocation = "/Fotos/";
+    string fileNameLocation = "/Img/";
     fileNameLocation.append(std::to_string(n));
     fileNameLocation.append(".jpg");
     cv::imwrite(fileNameLocation, image);

@@ -31,7 +31,7 @@ float data[] = {-0.052, -0.268, -0.668, 0.174,
     bio.mail = "romeo@gmail.com";
     bio.age = 22;
     bio.img = "Path";*/
-
+    db.load_BiographicalFile();
     //cout<<feat(0)(0)<<endl;
     //cout << feat.at<float>(0,1);
     //cout << feat << endl;
