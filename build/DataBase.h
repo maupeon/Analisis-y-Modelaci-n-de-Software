@@ -25,6 +25,7 @@ struct MatriculaId{
 };
 
 class DataBase {
+
 private:
     Mat queries,ides,descriptores;
     Index *flann_index;

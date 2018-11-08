@@ -19,7 +19,6 @@ DataBase::DataBase(){
         flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
         std::cout<<"listo"<<std::endl;
     }
-    
 }
 
 DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,string id_matFile){
@@ -27,6 +26,7 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
     this->biometricFile=biometricFile;
     this->nFile=nFile;
     this->id_matFile=id_matFile;
+
     
     load_N_File();
     load_ImgFolder();
@@ -40,13 +40,11 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
         flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
         std::cout<<"listo"<<std::endl;
     }
-
 }
 
 inline bool DataBase::existsFile (const std::string& name) {
     std::ifstream f(name.c_str());
     return f.good();
-    
 }
 
 void DataBase::load_N_File(){
@@ -150,9 +148,9 @@ Mat DataBase::search(Mat elementoaBuscar,int K){
     Mat indices,dists;
     flann_index->knnSearch(elementoaBuscar,indices,dists,K);
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
-    return indices;
-}
 
+    return indices;
+ }
 
 Mat DataBase::getBiometricByMatricula(string matricula){
     Mat m;
@@ -171,7 +169,7 @@ BiographicalData DataBase::getUserInfoByID(int ID){
 void DataBase::saveUserDataInAFile(BiographicalData bio){
     
     int id=n;
-    
+
     biographicalDB.open(biographicalFile,std::ios::out | std::ios::app);
     
     if(biographicalDB.is_open()){
@@ -187,7 +185,6 @@ void DataBase::saveUserDataInAFile(BiographicalData bio){
         Id_Mat<<id<<" "<<bio.matricula<<"\n";
         Id_Mat.close();
     }else std::cout<<"Unable to open file: "<<id_matFile<<'\n';
-    
     
 }
 
@@ -212,6 +209,7 @@ void DataBase::saveUserBiometricDataInAFile(Mat biometric){
         
         biometricDB.close();
     }else std::cout<<"Unable to open file: "<<biometricFile<<'\n';
+
 }
 
 void DataBase::getN(){
@@ -221,7 +219,6 @@ void DataBase::getN(){
         N>>n;
         N.close();
     }else std::cout<<"Unable to open: "<<nFile<<'\n';
-    
 }
 
 void DataBase::updateDataBase(){
@@ -232,7 +229,7 @@ void DataBase::updateDataBase(){
         N<<n<<"\n";
         N.close();
     }else std::cout<<"Error updating N.txt file\n";
-    
+
 }
 
 void DataBase::saveUserImage(Mat &image){
@@ -241,4 +238,3 @@ void DataBase::saveUserImage(Mat &image){
     fileNameLocation.append(".jpg");
     cv::imwrite(fileNameLocation, image);
 }
-
