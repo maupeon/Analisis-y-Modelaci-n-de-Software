@@ -1,0 +1,3 @@
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/rebuild_cache.dir
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/edit_cache.dir
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/CMakeFiles/main.dir

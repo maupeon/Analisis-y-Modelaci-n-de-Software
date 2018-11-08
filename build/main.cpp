@@ -2,7 +2,7 @@
 
 int main()
 {
-    DataBase db("hola.txt","biometrics.txt","d.txt","e.txt");
+    DataBase db("Data.txt","biometrics.txt","N.txt","e.txt");
     //DataBase db;
     
 
@@ -22,13 +22,24 @@ float data[] = {-0.052, -0.268, -0.668, 0.174,
     0.742, 0.791, 0.388, -0.834, 0.893, 0.252, -0.762, -0.603, -0.19, 0.962, -0.631, -0.95, 0.537, 0.103,0.56}; 
     cv::Mat feat(cv::Size(128, 1), CV_32F, data);
     Mat m;
+    
+    /*BiographicalData bio;
+    
+    bio.matricula = "A01020736";
+    bio.name = "Romeo";
+    bio.lastName = "Varela";
+    bio.mail = "romeo@gmail.com";
+    bio.age = 22;
+    bio.img = "Path";*/
 
     //cout<<feat(0)(0)<<endl;
     //cout << feat.at<float>(0,1);
     //cout << feat << endl;
    //db.saveUserBiometricDataInAFile(feat);
-    cout<<db.getBiometricByMatricula("1234")<<endl;
-    
+    //std::cout<<db.getBiometricByMatricula("A01020736")<<std::endl;
+    /*db.getN();
+    db.saveUserDataInAFile(bio);
+    db.updateDataBase();*/
     //cout<<db.search(feat,100)<<endl;
     //cout<<db.getRow(0)[0]<<endl;
    // cout << db.getMatrix().at<float>(0,1);
