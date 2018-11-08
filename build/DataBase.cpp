@@ -233,7 +233,7 @@ void DataBase::updateDataBase(){
 }
 
 void DataBase::saveUserImage(Mat &image){
-    string fileNameLocation = "/Fotos/";
+    string fileNameLocation = "../Img/";
     fileNameLocation.append(std::to_string(n));
     fileNameLocation.append(".jpg");
     cv::imwrite(fileNameLocation, image);
