@@ -3,7 +3,6 @@
 
 CMakeFiles/main.dir/DataBase.cpp.o: DataBase.cpp
 CMakeFiles/main.dir/DataBase.cpp.o: DataBase.h
-CMakeFiles/main.dir/DataBase.cpp.o: /usr/local/include/bits/stdc++.h
 CMakeFiles/main.dir/DataBase.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/main.dir/DataBase.cpp.o: /usr/local/include/opencv2/calib3d.hpp
 CMakeFiles/main.dir/DataBase.cpp.o: /usr/local/include/opencv2/calib3d/calib3d_c.h
@@ -137,7 +136,6 @@ CMakeFiles/main.dir/DataBase.cpp.o: /usr/local/include/opencv2/xfeatures2d/cuda.
 
 CMakeFiles/main.dir/main.cpp.o: DataBase.h
 CMakeFiles/main.dir/main.cpp.o: main.cpp
-CMakeFiles/main.dir/main.cpp.o: /usr/local/include/bits/stdc++.h
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/opencv2/calib3d.hpp
 CMakeFiles/main.dir/main.cpp.o: /usr/local/include/opencv2/calib3d/calib3d_c.h

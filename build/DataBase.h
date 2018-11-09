@@ -30,7 +30,7 @@ class DataBase {
         Mat queries,ides,descriptores;    
         Index *flann_index;
         int n;
-        string matricula,name,lastName,mail,age,biographicalFile,biometricFile,nFile,id_matFile;
+        string biographicalFile,biometricFile,nFile,id_matFile;
         std::fstream biographicalDB,biometricDB,N,Id_Mat;
         std::vector<MatriculaId> Id_MatriculaVector;
         std::vector<BiographicalData> biograData;
@@ -57,8 +57,11 @@ class DataBase {
         void saveUserImage(Mat &image);
         void getN();
         void updateDataBase();
-        String_To_Structure(std::string Data_As_String);
-        vector<std::string> indexData(std::string dataLine);
+        std::vector<std::string> indexData(std::string dataLine);
+        BiographicalData String_To_Structure(std::string Data_As_String);
+        bool ValidName(std::string word);
+        bool SimpleValidateMail(std::string mail);
+        int ValidateData(BiographicalData* Data);
         //~DataBase();
     
 };

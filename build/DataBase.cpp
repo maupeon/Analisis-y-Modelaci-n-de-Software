@@ -18,7 +18,6 @@ DataBase::DataBase(){
         load_Id_MatriculaFile();
     
         flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
-        std::cout<<"listo"<<std::endl;
     }
 }
 
@@ -39,7 +38,6 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
         load_Id_MatriculaFile();
         
         flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
-        std::cout<<"listo"<<std::endl;
     }
 }
 
@@ -66,6 +64,25 @@ void DataBase::load_ImgFolder(){
         std::cout<<"Directory successfully created"<<'\n';
         
     }else std::cout<<"Error creating directory or the directory already exits"<<'\n';
+}
+
+
+void DataBase::load_BiographicalFile(){
+    
+    string line;
+    biographicalDB.open(biographicalFile, std::ios::in);
+    
+    if(biographicalDB.is_open()){
+        while (true) {
+            std::getline(biographicalDB,line);
+            
+            biograData.push_back(String_To_Structure(line));
+            if(!biographicalDB.eof()){
+                break;
+            }
+        }
+        biographicalDB.close();
+    }else std::cout<<"Unable to open: "<<biographicalFile<<'\n';
 }
 
 void DataBase::load_BiometricFile(){
@@ -98,26 +115,9 @@ void DataBase::load_BiometricFile(){
         descriptores = descr.clone();
         
         
-    }else std::cout<<"Unable to open: "<<biometricFile<<'\n';
-
-
-void DataBase::load_BiographicalFile(){
-    
-    string line;
-    biographicalDB.open(biographicalFile, std::ios::in);
-    
-    if(biographicalDB.is_open()){
-        while (true) {
-            std::getline(biographicalDB,line);
-            
-            biograData.push_back(String_To_Structure(line));
-            if(!biographicalDB.eof()){
-                break;
-            }
-        }
-    }else std::cout<<"Unable to open: "<<biographicalFile<<'\n';
+     }else std::cout<<"Unable to open: "<<biometricFile<<'\n';
 }
-    
+
 void DataBase::load_Id_MatriculaFile(){
     MatriculaId m;
         
@@ -128,7 +128,7 @@ void DataBase::load_Id_MatriculaFile(){
                 
           Id_MatriculaVector.push_back(m);
         }
-            
+        Id_Mat.close();
     }else std::cout<<"Unable to open: "<<id_matFile<<'\n';
 }
 
@@ -239,37 +239,80 @@ void DataBase::updateDataBase(){
     }else std::cout<<"Error updating N.txt file\n";
    
 }
-    
-BiographicalData DataBase::String_To_Structure(std::string Data_As_String)
-{
-        BiographicalData Data_Struct;
-        std::vector<std::string> Data_Vector_String=indexData(Data_As_String);
-        Data_Struct.id=Data_Vector_String[0];
-        Data_Struct.matricula=Data_Vector_String[1];
-        Data_Struct.name=Data_Vector_String[2];
-        Data_Struct.lastName=Data_Vector_String[3];
-        Data_Struct.mail=Data_Vector_String[4];
-        Data_Struct.age=std::stoi(Data_Vector_String[5]);
-        Data_Struct.img=Data_Vector_String[6];
-        return Data_Struct;
-}
-    
+
 //Splits the dataLine (strings) to a vector of strings
 std::vector<std::string> DataBase::indexData(std::string dataLine) {
-    std::vector <int> keys;
-    std::vector<std::string> dataMatrix;
-    std::string line = dataLine;                    //Holds one line of data
-    std::string delimiter = ",";                        //The character separating the data
-        size_t pos = 0;                                //Starting at index 0
-        int j = 0;
-        std::string data;
-        while ((pos = line.find(delimiter)) != std::string::npos) {    //While the delimiter still exits
-            data = line.substr(0, pos);                            //Get one piece of data (up to the delimiter)
-            dataMatrix.push_back(data);            //String to float of bit of isolated data, add to data matrix
-            line.erase(0, pos + delimiter.length());            //Erase the line up to the delimiter
-            j++;
-        }
-        dataMatrix.push_back(line);            //Last bit of data doesn't have a delimiter
-        return dataMatrix;
+	std::vector <int> keys;
+	std::vector<std::string> dataMatrix;
+	std::string line = dataLine;					//Holds one line of data
+	std::string delimiter = ",";						//The character separating the data
+	size_t pos = 0;								//Starting at index 0
+	int j = 0;
+	std::string data;
+	while ((pos = line.find(delimiter)) != std::string::npos) {	//While the delimiter still exits
+		data = line.substr(0, pos);							//Get one piece of data (up to the delimiter)
+		dataMatrix.push_back(data);			//String to float of bit of isolated data, add to data matrix
+		line.erase(0, pos + delimiter.length());			//Erase the line up to the delimiter
+		j++;
+	}
+	dataMatrix.push_back(line);			//Last bit of data doesn't have a delimiter
+	return dataMatrix;
 }
 
+BiographicalData DataBase::String_To_Structure(std::string Data_As_String)
+	{
+		BiographicalData Data_Struct;
+		std::vector<std::string> Data_Vector_String=indexData(Data_As_String);
+		Data_Struct.id=Data_Vector_String[0];
+		Data_Struct.matricula=Data_Vector_String[1];
+		Data_Struct.name=Data_Vector_String[2];
+		Data_Struct.lastName=Data_Vector_String[3];
+		Data_Struct.mail=Data_Vector_String[4];
+		Data_Struct.age=std::stoi(Data_Vector_String[5]);
+		Data_Struct.img=Data_Vector_String[6];
+		return Data_Struct;
+	}
+int DataBase::ValidateData(BiographicalData *bio)
+{
+    int result_case_3=0;
+    if(bio->matricula.length()!=9||bio->matricula[0]!='A')
+        result_case_3+=1;
+    if(!ValidName(bio->name))
+        result_case_3+=2;
+    if(!ValidName(bio->lastName))
+        result_case_3+=4;
+    if(!SimpleValidateMail(bio->mail))
+        result_case_3+=8;
+    if(bio->age>100||bio->age<1)
+        result_case_3+=16;
+    return result_case_3;
+}
+bool DataBase::ValidName(std::string word)
+{
+    bool verdict=1;
+    //std::string Caps="ABCDEFGHIJKLMN�OPQRSTUVWXYZ�����";
+    //std::string Lows="abcdefghijklmn�opqrstuvwxyz�����";
+    std::string InvalidNameCharacters=" !\"#$%&()*+,./:;<=>?[\\]^_{|}~";
+    for(int H=0;H<word.size();H++)
+    {
+        if(isdigit(word[H])||InvalidNameCharacters.find(word[H])!=std::string::npos)
+        {
+            verdict=0;
+            break;
+        }
+    }
+        return verdict;
+}	
+bool DataBase::SimpleValidateMail(std::string mail)
+{
+    if(mail.find('@')==std::string::npos)
+    {
+        return false;
+    }else
+    {
+        if(mail.substr(mail.find('@'),mail.size()-mail.find('@')).find('.')==std::string::npos)
+            return false;
+        else
+            return true;
+    }
+}
