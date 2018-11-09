@@ -23,23 +23,22 @@ float data[] = {-0.052, -0.268, -0.668, 0.174,
     cv::Mat feat(cv::Size(128, 1), CV_32F, data);
     Mat m;
     
-    /*BiographicalData bio;
+    BiographicalData bio;
     
-    bio.matricula = "A01020736";
-    bio.name = "Romeo";
-    bio.lastName = "Varela";
-    bio.mail = "romeo@gmail.com";
+    bio.matricula = "A01030486";
+    bio.name = "Mauricio";
+    bio.lastName = "Peón";
+    bio.mail = "maup@gmail.com";
     bio.age = 22;
-    bio.img = "Path";*/
     
     //cout<<feat(0)(0)<<endl;
     //cout << feat.at<float>(0,1);
     //cout << feat << endl;
    //db.saveUserBiometricDataInAFile(feat);
     //std::cout<<db.getBiometricByMatricula("A01020736")<<std::endl;
-    /*db.getN();
+    db.getN();
     db.saveUserDataInAFile(bio);
-    db.updateDataBase();*/
+    db.updateDataBase();
     //cout<<db.search(feat,100)<<endl;
     //cout<<db.getRow(0)[0]<<endl;
    // cout << db.getMatrix().at<float>(0,1);

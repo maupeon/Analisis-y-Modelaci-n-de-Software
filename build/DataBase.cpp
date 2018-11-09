@@ -176,7 +176,7 @@ void DataBase::saveUserDataInAFile(BiographicalData bio){
     
     if(biographicalDB.is_open()){
         
-        biographicalDB<<id<<","<<bio.matricula<<","<<bio.name<<","<<bio.lastName<<","<<bio.mail<<","<<bio.age<<","<<bio.img<<"\n";
+        biographicalDB<<id<<","<<bio.matricula<<","<<bio.name<<","<<bio.lastName<<","<<bio.mail<<","<<bio.age<<","<<"../img/"+std::to_string(id)+".jpg"<<"\n";
         biographicalDB.close();
     }else std::cout<<"Unable to open file: "<<biographicalFile<<'\n';
     
@@ -195,18 +195,21 @@ void DataBase::saveUserBiometricDataInAFile(Mat biometric){
     int id=n;
     biometricDB.open(biometricFile,std::ios::out | std::ios::app);
     
-    nuevoUsuario+=std::to_string(id);
-    nuevoUsuario+=",";
-    for(int i = 0 ; i< biometric.rows;i++){
-        float nearest = roundf(biometric.at<float>(i,0) * 100) / 100;
-        //cout<<nearest<<" ";
-        nuevoUsuario+= std::to_string(nearest);
-        if(i < biometric.rows-1){
-            nuevoUsuario+=',';
+    if(biometricDB.is_open()){
+        nuevoUsuario+=std::to_string(id);
+        nuevoUsuario+=",";
+        for(int i = 0 ; i< biometric.rows;i++){
+            float nearest = roundf(biometric.at<float>(i,0) * 100) / 100;
+            //cout<<nearest<<" ";
+            nuevoUsuario+= std::to_string(nearest);
+            if(i < biometric.rows-1){
+                nuevoUsuario+=',';
+            }
         }
-    }
-    //std::cout<<nuevoUsuario<<std::endl;
-    biometricDB<<nuevoUsuario<<"\n";
+        //std::cout<<nuevoUsuario<<std::endl;
+        biometricDB<<nuevoUsuario<<"\n";
+        biometricDB.close();
+    }else std::cout<<"Unable to open file: "<<biometricFile<<'\n';
 }
     
 void DataBase::saveUserImage(Mat &image){
