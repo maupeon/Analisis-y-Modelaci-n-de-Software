@@ -14,7 +14,7 @@ DataBase::DataBase(){
     if(existsFile(biometricFile)){
     
         load_BiometricFile();
-        //load_BiographicalFile();
+        load_BiographicalFile();
         load_Id_MatriculaFile();
     
         flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
@@ -35,13 +35,20 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
     if(existsFile(biometricFile)){
         
         load_BiometricFile();
-        //load_BiographicalFile();
+        load_BiographicalFile();
         load_Id_MatriculaFile();
         
         flann_index = new Index(descriptores, cv::flann::KDTreeIndexParams());
         std::cout<<"listo"<<std::endl;
     }
 }
+
+inline bool DataBase::existsFile (const std::string& name) {
+    std::ifstream f(name.c_str());
+    return f.good();
+    
+}
+
 void DataBase::load_N_File(){
     
     if(!existsFile(nFile)){
@@ -53,11 +60,7 @@ void DataBase::load_N_File(){
         }else std::cout<< "Unable creating N.txt\n";
     }
 }
-inline bool DataBase::existsFile (const std::string& name) {
-    std::ifstream f(name.c_str());
-    return f.good();
-    
-}
+
 void DataBase::load_ImgFolder(){
     if(mkdir("../Img", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0){
         std::cout<<"Directory successfully created"<<'\n';
@@ -107,12 +110,26 @@ void DataBase::load_BiographicalFile(){
         while (true) {
             std::getline(biographicalDB,line);
             
-            biograData.push_back();
+            biograData.push_back(String_To_Structure(line));
             if(!biographicalDB.eof()){
                 break;
             }
         }
     }else std::cout<<"Unable to open: "<<biographicalFile<<'\n';
+}
+    
+void DataBase::load_Id_MatriculaFile(){
+    MatriculaId m;
+        
+    Id_Mat.open(id_matFile,std::ios::in);
+        
+    if(Id_Mat.is_open()){
+        while (Id_Mat>>m.ID>>m.matricula) {
+                
+          Id_MatriculaVector.push_back(m);
+        }
+            
+    }else std::cout<<"Unable to open: "<<id_matFile<<'\n';
 }
 
  Mat DataBase::getMatrix(){
@@ -135,19 +152,7 @@ void DataBase::load_BiographicalFile(){
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     return indices; 
  }
-void DataBase::load_Id_MatriculaFile(){
-    MatriculaId m;
-    
-    Id_Mat.open(id_matFile,std::ios::in);
-    
-    if(Id_Mat.is_open()){
-        while (Id_Mat>>m.ID>>m.matricula) {
-            
-            Id_MatriculaVector.push_back(m);
-        }
-        
-    }else std::cout<<"Unable to open: "<<id_matFile<<'\n';
-}
+
 
 Mat DataBase::getBiometricByMatricula(string matricula){
     Mat m;
@@ -203,6 +208,16 @@ void DataBase::saveUserBiometricDataInAFile(Mat biometric){
     //std::cout<<nuevoUsuario<<std::endl;
     biometricDB<<nuevoUsuario<<"\n";
 }
+    
+void DataBase::saveUserImage(Mat &image){
+        
+    //cv::imwrite("Fotos/2.jpg",image);
+    string fileNameLocation = "../Img/";
+        
+    fileNameLocation.append(std::to_string(n));
+    fileNameLocation.append(".jpg");
+    cv::imwrite(fileNameLocation, image);
+}
 
 void DataBase::getN(){
     N.open(nFile,std::ios::in);
@@ -224,13 +239,37 @@ void DataBase::updateDataBase(){
     }else std::cout<<"Error updating N.txt file\n";
    
 }
-
-void DataBase::saveUserImage(Mat &image){
-
-    //cv::imwrite("Fotos/2.jpg",image);
-    string fileNameLocation = "../Img/";
-
-    fileNameLocation.append(std::to_string(n));
-    fileNameLocation.append(".jpg");
-    cv::imwrite(fileNameLocation, image);
+    
+BiographicalData DataBase::String_To_Structure(std::string Data_As_String)
+{
+        BiographicalData Data_Struct;
+        std::vector<std::string> Data_Vector_String=indexData(Data_As_String);
+        Data_Struct.id=Data_Vector_String[0];
+        Data_Struct.matricula=Data_Vector_String[1];
+        Data_Struct.name=Data_Vector_String[2];
+        Data_Struct.lastName=Data_Vector_String[3];
+        Data_Struct.mail=Data_Vector_String[4];
+        Data_Struct.age=std::stoi(Data_Vector_String[5]);
+        Data_Struct.img=Data_Vector_String[6];
+        return Data_Struct;
 }
+    
+//Splits the dataLine (strings) to a vector of strings
+std::vector<std::string> DataBase::indexData(std::string dataLine) {
+    std::vector <int> keys;
+    std::vector<std::string> dataMatrix;
+    std::string line = dataLine;                    //Holds one line of data
+    std::string delimiter = ",";                        //The character separating the data
+        size_t pos = 0;                                //Starting at index 0
+        int j = 0;
+        std::string data;
+        while ((pos = line.find(delimiter)) != std::string::npos) {    //While the delimiter still exits
+            data = line.substr(0, pos);                            //Get one piece of data (up to the delimiter)
+            dataMatrix.push_back(data);            //String to float of bit of isolated data, add to data matrix
+            line.erase(0, pos + delimiter.length());            //Erase the line up to the delimiter
+            j++;
+        }
+        dataMatrix.push_back(line);            //Last bit of data doesn't have a delimiter
+        return dataMatrix;
+}
+
