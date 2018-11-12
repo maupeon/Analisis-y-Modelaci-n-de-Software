@@ -15,7 +15,7 @@ The second constructor requiress four arguments:
 
 The class' functions are listed below with their respective parameters listed below them if applicable.
 
-###File management
+### File management
 
 1. load_N_File, loads N.txt
 
@@ -27,7 +27,7 @@ The class' functions are listed below with their respective parameters listed be
 
 5. load_Id_MatriculaFile, loads ID_mat.txt
 
-###Data management
+### Data management
 
 6. Mat getMatrix, retrieve entire biometric matrix
 
