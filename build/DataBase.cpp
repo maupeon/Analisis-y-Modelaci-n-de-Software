@@ -9,7 +9,7 @@ DataBase::DataBase(){
     this->id_matFile = "../ID_mat.txt";
     
     load_N_File();
-    load_ImgFolder();
+    //load_ImgFolder();
     
     if(existsFile(biometricFile)){
     
@@ -29,7 +29,7 @@ DataBase::DataBase(string biographicalFile,string biometricFile,string nFile,str
 
     
     load_N_File();
-    load_ImgFolder();
+    //load_ImgFolder();
     
     if(existsFile(biometricFile)){
         
@@ -59,12 +59,12 @@ void DataBase::load_N_File(){
     }
 }
 
-void DataBase::load_ImgFolder(){
+/*void DataBase::load_ImgFolder(){
     if(mkdir("../Img", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0){
         std::cout<<"Directory successfully created"<<'\n';
         
     }else std::cout<<"Error creating directory or the directory already exits"<<'\n';
-}
+}*/
 
 
 void DataBase::load_BiographicalFile(){
@@ -77,12 +77,13 @@ void DataBase::load_BiographicalFile(){
             std::getline(biographicalDB,line);
             
             biograData.push_back(String_To_Structure(line));
-            if(!biographicalDB.eof()){
+            if(biographicalDB.eof()){
                 break;
             }
         }
         biographicalDB.close();
     }else std::cout<<"Unable to open: "<<biographicalFile<<'\n';
+
 }
 
 void DataBase::load_BiometricFile(){
@@ -130,6 +131,7 @@ void DataBase::load_Id_MatriculaFile(){
         }
         Id_Mat.close();
     }else std::cout<<"Unable to open: "<<id_matFile<<'\n';
+    
 }
 
  Mat DataBase::getMatrix(){
@@ -168,6 +170,17 @@ BiographicalData DataBase::getUserInfoByID(int ID){
     return biograData[ID];
 }
 
+BiographicalData DataBase::getUserInfoByMatricula(string matricula){
+    BiographicalData bio;
+    
+    for(int i=0;i<Id_MatriculaVector.size();i++){
+        if(Id_MatriculaVector[i].matricula == matricula){
+            return biograData[i];
+        }
+    }
+    return bio;
+}
+
 void DataBase::saveUserDataInAFile(BiographicalData bio){
     
     int id=n;
@@ -189,6 +202,7 @@ void DataBase::saveUserDataInAFile(BiographicalData bio){
     }else std::cout<<"Unable to open file: "<<id_matFile<<'\n';
     
 }
+
 
 void DataBase::saveUserBiometricDataInAFile(Mat biometric){
     string nuevoUsuario = "";

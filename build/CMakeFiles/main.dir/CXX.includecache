@@ -28,6 +28,10 @@ opencv2/flann/miniflann.hpp
 opencv2/flann/flann_base.hpp
 /Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/opencv2/flann/flann_base.hpp
 
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/main.cpp
+DataBase.h
+/Users/romeovarela/Documents/Analisis-y-Modelaci-n-de-Software-master/Analisis-y-Modelaci-n-de-Software/build/DataBase.h
+
 /usr/local/include/opencv/cxcore.h
 opencv2/core/core_c.h
 /usr/local/include/opencv/opencv2/core/core_c.h
